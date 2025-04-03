@@ -22,7 +22,7 @@
     "lucide-react": "^0.365.0",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.6.2",
-    "next": "14.1.4",
+    "next": "^14.2.26",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
@@ -30,9 +30,9 @@
     "react-lottie": "^1.2.4",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.163.0",
-    "three-globe": "^2.31.0",
-    "vercel": "^34.0.0"
+    "three": "^0.175.0",
+    "three-globe": "^2.42.3",
+    "vercel": "^41.4.1"
   },
   "devDependencies": {
     "@types/estree": "^1.0.7",

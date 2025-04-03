@@ -1,28 +1,37 @@
 // This file configures the initialization of Sentry on the client.
-// The added config here will be used whenever a users loads a page in their browser.
+// The added config here will be used whenever a user loads a page in their browser.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
 
-Sentry.init({
-  dsn: "https://9e46c71b89e11dcb68ca3524aecf38ed@o4509054931894272.ingest.us.sentry.io/4509054935891968",
+declare global {
+  interface Window {
+    __SENTRY_INITIALIZED__?: boolean;
+  }
+}
 
-  // Add optional integrations for additional features
-  integrations: [
-    Sentry.replayIntegration(),
-  ],
+// Prevent multiple Sentry instances
+if (!window.__SENTRY_INITIALIZED__) {
+  Sentry.init({
+    dsn: "https://9e46c71b89e11dcb68ca3524aecf38ed@o4509054931894272.ingest.us.sentry.io/4509054935891968",
 
-  // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-  tracesSampleRate: 1,
+    // Add optional integrations for additional features
+    integrations: [
+      Sentry.replayIntegration(),
+    ],
 
-  // Define how likely Replay events are sampled.
-  // This sets the sample rate to be 10%. You may want this to be 100% while
-  // in development and sample at a lower rate in production
-  replaysSessionSampleRate: 0.1,
+    // Define how likely traces are sampled. Adjust this value in production.
+    tracesSampleRate: 1.0,
 
-  // Define how likely Replay events are sampled when an error occurs.
-  replaysOnErrorSampleRate: 1.0,
+    // Define how likely Replay events are sampled.
+    replaysSessionSampleRate: 0.1,
 
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
-});
+    // Define how likely Replay events are sampled when an error occurs.
+    replaysOnErrorSampleRate: 1.0,
+
+    // Debugging mode (set to `true` to print logs while setting up Sentry)
+    debug: false,
+  });
+
+  window.__SENTRY_INITIALIZED__ = true;
+}
